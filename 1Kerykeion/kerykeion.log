@@ -1,0 +1,29 @@
+DEBUG:root:Starting Kerykeion
+WARNING:root:
+********
+NO GEONAMES USERNAME SET!
+Using the default geonames username is not recommended, please set a custom one!
+You can get one for free here:
+https://www.geonames.org/login
+Keep in mind that the default username is limited to 2000 requests per hour and is shared with everyone else using this library.
+********
+INFO:root:Fetching timezone/coordinates from geonames
+DEBUG:requests_cache.backends:Initializing backend: sqlite cache/kerykeion_geonames_cache
+DEBUG:requests_cache.backends.base:Initialized SQLiteDict with serializer: SerializerPipeline(name=pickle, n_stages=2)
+DEBUG:requests_cache.backends.sqlite:Opening connection to C:\Users\musta\OneDrive\Masaüstü\swiss\kerykeion\cache\kerykeion_geonames_cache.sqlite:responses
+DEBUG:requests_cache.backends.base:Initialized SQLiteDict with serializer: None
+DEBUG:requests_cache.backends.sqlite:Opening connection to C:\Users\musta\OneDrive\Masaüstü\swiss\kerykeion\cache\kerykeion_geonames_cache.sqlite:redirects
+DEBUG:root:Requesting data from geonames basic: http://api.geonames.org/searchJSON?q=Atlanta&country=USA&username=century.boy&maxRows=1&style=SHORT&featureClass=A&featureClass=P
+DEBUG:requests_cache.policy.actions:Cache directives from request headers: CacheDirectives()
+DEBUG:requests_cache.policy.actions:Pre-read cache checks: Passed
+DEBUG:requests_cache.policy.actions:Post-read cache actions: CacheActions(expire_after=86400, send_request=True)
+DEBUG:urllib3.connectionpool:Starting new HTTP connection (1): api.geonames.org:80
+DEBUG:urllib3.connectionpool:http://api.geonames.org:80 "GET /searchJSON?q=Atlanta&country=USA&username=century.boy&maxRows=1&style=SHORT&featureClass=A&featureClass=P HTTP/11" 200 None
+DEBUG:requests_cache.policy.actions:Pre-write cache checks: Passed
+DEBUG:root:Response from GeoNames: {'totalResultsCount': 2939, 'geonames': [{'lng': '-84.38798', 'geonameId': 4180439, 'countryCode': 'US', 'name': 'Atlanta', 'toponymName': 'Atlanta', 'lat': '33.749', 'fcl': 'P', 'fcode': 'PPLA'}]}
+DEBUG:root:Requesting data from GeoName timezones: http://api.geonames.org/timezoneJSON?lat=33.749&lng=-84.38798&username=century.boy
+DEBUG:requests_cache.policy.actions:Cache directives from request headers: CacheDirectives()
+DEBUG:requests_cache.policy.actions:Pre-read cache checks: Passed
+DEBUG:requests_cache.policy.actions:Post-read cache actions: CacheActions(expire_after=86400, send_request=True)
+DEBUG:urllib3.connectionpool:http://api.geonames.org:80 "GET /timezoneJSON?lat=33.749&lng=-84.38798&username=century.boy HTTP/11" 200 None
+DEBUG:requests_cache.policy.actions:Pre-write cache checks: Passed

@@ -1,0 +1,85 @@
+2024-08-20 01:25:42,944 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.0.30:5000
+2024-08-20 01:25:42,945 - INFO - [33mPress CTRL+C to quit[0m
+2024-08-20 01:25:42,947 - INFO -  * Restarting with stat
+2024-08-20 01:25:46,199 - WARNING -  * Debugger is active!
+2024-08-20 01:25:46,215 - INFO -  * Debugger PIN: 135-437-920
+2024-08-20 01:26:13,072 - INFO - 127.0.0.1 - - [20/Aug/2024 01:26:13] "OPTIONS /calculate_chart HTTP/1.1" 200 -
+2024-08-20 01:26:13,323 - DEBUG - Starting Kerykeion
+2024-08-20 01:26:13,323 - WARNING - 
+********
+NO GEONAMES USERNAME SET!
+Using the default geonames username is not recommended, please set a custom one!
+You can get one for free here:
+https://www.geonames.org/login
+Keep in mind that the default username is limited to 2000 requests per hour and is shared with everyone else using this library.
+********
+2024-08-20 01:26:13,500 - DEBUG - Kerykeion config file path: C:\Users\musta\AppData\Roaming\Python\Python312\site-packages\kerykeion\settings\kr.config.json
+2024-08-20 01:26:13,502 - DEBUG - Kerykeion config file path: C:\Users\musta\AppData\Roaming\Python\Python312\site-packages\kerykeion\settings\kr.config.json
+2024-08-20 01:26:13,503 - DEBUG - Relevant aspects not already calculated, calculating now...
+2024-08-20 01:26:13,507 - DEBUG - planet: 0, degree: 144.86664089990617
+2024-08-20 01:26:13,507 - DEBUG - planet: 1, degree: 77.8295979472797
+2024-08-20 01:26:13,507 - DEBUG - planet: 2, degree: 130.77640835078475
+2024-08-20 01:26:13,507 - DEBUG - planet: 3, degree: 126.2205387391549
+2024-08-20 01:26:13,507 - DEBUG - planet: 4, degree: 166.41410348587203
+2024-08-20 01:26:13,507 - DEBUG - planet: 5, degree: 221.56226984496868
+2024-08-20 01:26:13,507 - DEBUG - planet: 6, degree: 136.18591135566876
+2024-08-20 01:26:13,508 - DEBUG - planet: 7, degree: 343.47025626349784
+2024-08-20 01:26:13,508 - DEBUG - planet: 8, degree: 318.23385413410915
+2024-08-20 01:26:13,508 - DEBUG - planet: 9, degree: 264.1625459462181
+2024-08-20 01:26:13,508 - DEBUG - planet: 10, degree: 355.79540782179834
+2024-08-20 01:26:13,508 - DEBUG - planet: 11, degree: 306.0447812576718
+2024-08-20 01:26:13,508 - DEBUG - planet: 12, degree: 83.04562165050703
+2024-08-20 01:26:13,508 - DEBUG - planet: 13, degree: 331.5944436804448
+2024-08-20 01:26:13,508 - DEBUG - planet: 14, degree: 173.01434669583077
+2024-08-20 01:26:13,508 - DEBUG - Moon, 82.03419012548136, 5.216023703227336
+2024-08-20 01:26:13,508 - DEBUG - Asc, 5.216023703227336, 43.174917088647874
+2024-08-20 01:26:13,508 - DEBUG - Venus, 43.174917088647874, 4.555869611629845
+2024-08-20 01:26:13,509 - DEBUG - Mercury, 4.555869611629845, 5.409503004884016
+2024-08-20 01:26:13,509 - DEBUG - Saturn, 5.409503004884016, 8.680729544237408
+2024-08-20 01:26:13,509 - DEBUG - Sun, 8.680729544237408, 21.54746258596586
+2024-08-20 01:26:13,509 - DEBUG - Mars, 21.54746258596586, 6.600243209958734
+2024-08-20 01:26:13,509 - DEBUG - Mean_Lilith, 6.600243209958734, 48.547923149137915
+2024-08-20 01:26:13,509 - DEBUG - Jupiter, 48.547923149137915, 42.60027610124939
+2024-08-20 01:26:13,509 - DEBUG - Pluto, 42.60027610124939, 41.88223531145371
+2024-08-20 01:26:13,509 - DEBUG - Chiron, 41.88223531145371, 12.189072876437365
+2024-08-20 01:26:13,509 - DEBUG - Neptune, 12.189072876437365, 13.360589546335632
+2024-08-20 01:26:13,509 - DEBUG - Mc, 13.360589546335632, 11.875812583053062
+2024-08-20 01:26:13,509 - DEBUG - Uranus, 11.875812583053062, 12.32515155830049
+2024-08-20 01:26:13,509 - DEBUG - True_Node, 12.32515155830049, 82.03419012548136
+2024-08-20 01:26:13,511 - DEBUG - Template dictionary keys: dict_keys(['color_style_tag', 'chart_height', 'chart_width', 'stringName', 'viewbox', 'transitRing', 'degreeRing', 'first_circle', 'second_circle', 'third_circle', 'makeAspectGrid', 'makeAspects', 'stringTitle', 'bottomLeft0', 'bottomLeft1', 'bottomLeft2', 'bottomLeft3', 'bottomLeft4', 'moon_phase', 'stringLocation', 'stringLat', 'stringLon', 'stringPosition', 'paper_color_0', 'paper_color_1', 'planets_color_0', 'planets_color_1', 'planets_color_2', 'planets_color_3', 'planets_color_4', 'planets_color_5', 'planets_color_6', 'planets_color_7', 'planets_color_8', 'planets_color_9', 'planets_color_10', 'planets_color_11', 'planets_color_12', 'planets_color_13', 'planets_color_14', 'planets_color_15', 'planets_color_16', 'planets_color_17', 'zodiac_color_0', 'zodiac_color_1', 'zodiac_color_2', 'zodiac_color_3', 'zodiac_color_4', 'zodiac_color_5', 'zodiac_color_6', 'zodiac_color_7', 'zodiac_color_8', 'zodiac_color_9', 'zodiac_color_10', 'zodiac_color_11', 'orb_color_0', 'orb_color_30', 'orb_color_45', 'orb_color_60', 'orb_color_72', 'orb_color_90', 'orb_color_120', 'orb_color_135', 'orb_color_144', 'orb_color_150', 'orb_color_180', 'makeZodiac', 'makeHousesGrid', 'makeHouses', 'makePlanets', 'elements_percentages', 'makePlanetGrid', 'stringDateTime'])
+2024-08-20 01:26:13,514 - DEBUG - planet: 0, degree: 144.86664089990617
+2024-08-20 01:26:13,514 - DEBUG - planet: 1, degree: 77.8295979472797
+2024-08-20 01:26:13,514 - DEBUG - planet: 2, degree: 130.77640835078475
+2024-08-20 01:26:13,514 - DEBUG - planet: 3, degree: 126.2205387391549
+2024-08-20 01:26:13,514 - DEBUG - planet: 4, degree: 166.41410348587203
+2024-08-20 01:26:13,515 - DEBUG - planet: 5, degree: 221.56226984496868
+2024-08-20 01:26:13,515 - DEBUG - planet: 6, degree: 136.18591135566876
+2024-08-20 01:26:13,515 - DEBUG - planet: 7, degree: 343.47025626349784
+2024-08-20 01:26:13,515 - DEBUG - planet: 8, degree: 318.23385413410915
+2024-08-20 01:26:13,515 - DEBUG - planet: 9, degree: 264.1625459462181
+2024-08-20 01:26:13,515 - DEBUG - planet: 10, degree: 355.79540782179834
+2024-08-20 01:26:13,515 - DEBUG - planet: 11, degree: 306.0447812576718
+2024-08-20 01:26:13,515 - DEBUG - planet: 12, degree: 83.04562165050703
+2024-08-20 01:26:13,515 - DEBUG - planet: 13, degree: 331.5944436804448
+2024-08-20 01:26:13,515 - DEBUG - planet: 14, degree: 173.01434669583077
+2024-08-20 01:26:13,515 - DEBUG - Moon, 82.03419012548136, 5.216023703227336
+2024-08-20 01:26:13,516 - DEBUG - Asc, 5.216023703227336, 43.174917088647874
+2024-08-20 01:26:13,516 - DEBUG - Venus, 43.174917088647874, 4.555869611629845
+2024-08-20 01:26:13,516 - DEBUG - Mercury, 4.555869611629845, 5.409503004884016
+2024-08-20 01:26:13,516 - DEBUG - Saturn, 5.409503004884016, 8.680729544237408
+2024-08-20 01:26:13,516 - DEBUG - Sun, 8.680729544237408, 21.54746258596586
+2024-08-20 01:26:13,516 - DEBUG - Mars, 21.54746258596586, 6.600243209958734
+2024-08-20 01:26:13,516 - DEBUG - Mean_Lilith, 6.600243209958734, 48.547923149137915
+2024-08-20 01:26:13,516 - DEBUG - Jupiter, 48.547923149137915, 42.60027610124939
+2024-08-20 01:26:13,516 - DEBUG - Pluto, 42.60027610124939, 41.88223531145371
+2024-08-20 01:26:13,516 - DEBUG - Chiron, 41.88223531145371, 12.189072876437365
+2024-08-20 01:26:13,516 - DEBUG - Neptune, 12.189072876437365, 13.360589546335632
+2024-08-20 01:26:13,516 - DEBUG - Mc, 13.360589546335632, 11.875812583053062
+2024-08-20 01:26:13,516 - DEBUG - Uranus, 11.875812583053062, 12.32515155830049
+2024-08-20 01:26:13,516 - DEBUG - True_Node, 12.32515155830049, 82.03419012548136
+2024-08-20 01:26:13,519 - INFO - SVG Generated Correctly in: C:\Users\musta\OneDrive\Masaüstü\swiss\1 - Natal Chart.svg
+2024-08-20 01:26:13,520 - INFO - 127.0.0.1 - - [20/Aug/2024 01:26:13] "POST /calculate_chart HTTP/1.1" 200 -
+2024-08-20 01:26:13,832 - INFO - 127.0.0.1 - - [20/Aug/2024 01:26:13] "[33mGET /get_svg/null HTTP/1.1[0m" 404 -
