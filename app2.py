@@ -11,14 +11,17 @@ app = Flask(__name__)
 CORS(app)
 
 # Logging ayarları
-logging.basicConfig(level=logging.DEBUG, filename="kerykeion.log", filemode="a",
-                    format="%(asctime)s - %(levelname)s - %(message)s")
+logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Swiss Ephemeris dosyalarının tam yolunu belirtelim
-sweph_path = r"1Kerykeion\kerykeion\sweph"
+# Swiss Ephemeris dosyalarının yolu
+sweph_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "1Kerykeion", "kerykeion", "sweph")
 os.environ["SWISSEPH_PATH"] = sweph_path
 
 print(f"Swiss Ephemeris dosyalarının konumu: {sweph_path}")
+
+# Çıktı dizini
+output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
+os.makedirs(output_dir, exist_ok=True)
 
 @app.route('/calculate_chart', methods=['POST'])
 def calculate_chart():
@@ -46,11 +49,6 @@ def calculate_chart():
         report_text = report.get_full_report()
 
         # SVG doğum haritası oluştur
-        output_dir = r"C:\Users\musta\OneDrive\Masaüstü\swiss"
-        
-        # Çıktı dizininin var olduğundan emin olun
-        os.makedirs(output_dir, exist_ok=True)
-        
         print("\nSVG oluşturuluyor...")
         chart = KerykeionChartSVG(subject, chart_type="Natal", new_output_directory=output_dir)
         print(f"Chart nesnesi oluşturuldu: {chart}")
@@ -61,24 +59,17 @@ def calculate_chart():
         # Sonuçları JSON olarak döndür
         return jsonify({
             'report': report_text,
-            'svg_path': svg_path
+            'svg_path': os.path.basename(svg_path)
         })
 
     except Exception as e:
-        print(f"Bir hata oluştu: {e}")
-        print(f"Hata türü: {type(e).__name__}")
         logging.exception("Bir hata oluştu:")
-        
-        # Hata stack trace'ini yazdıralım
-        import traceback
-        traceback.print_exc()
-
         return jsonify({'error': str(e)}), 500
 
 @app.route('/get_svg/<path:filename>', methods=['GET'])
 def get_svg(filename):
     try:
-        return send_file(filename, mimetype='image/svg+xml')
+        return send_file(os.path.join(output_dir, filename), mimetype='image/svg+xml')
     except Exception as e:
         return jsonify({'error': str(e)}), 404
 
@@ -96,4 +87,5 @@ def get_version():
     })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
