@@ -1,10 +1,9 @@
 import os
 import sys
 from pathlib import Path
-from kerykeion import AstrologicalSubject, Report, KerykeionChartSVG
+from kerykeion import AstrologicalSubject, Report
 import logging
-from flask import Flask, request, jsonify, send_file
-from flask_cors import CORS
+from flask import Flask, request, jsonify
 
 # Flask uygulamasını oluştur
 app = Flask(__name__)
@@ -48,30 +47,14 @@ def calculate_chart():
         report = Report(subject)
         report_text = report.get_full_report()
 
-        # SVG doğum haritası oluştur
-        print("\nSVG oluşturuluyor...")
-        chart = KerykeionChartSVG(subject, chart_type="Natal", new_output_directory=output_dir)
-        print(f"Chart nesnesi oluşturuldu: {chart}")
-        
-        svg_path = chart.makeSVG()
-        print(f"SVG doğum haritası şu konumda oluşturuldu: {svg_path}")
-
         # Sonuçları JSON olarak döndür
         return jsonify({
             'report': report_text,
-            'svg_path': os.path.basename(svg_path)
         })
 
     except Exception as e:
         logging.exception("Bir hata oluştu:")
         return jsonify({'error': str(e)}), 500
-
-@app.route('/get_svg/<path:filename>', methods=['GET'])
-def get_svg(filename):
-    try:
-        return send_file(os.path.join(output_dir, filename), mimetype='image/svg+xml')
-    except Exception as e:
-        return jsonify({'error': str(e)}), 404
 
 @app.route('/version', methods=['GET'])
 def get_version():
