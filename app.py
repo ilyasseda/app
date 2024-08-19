@@ -4,6 +4,7 @@ from pathlib import Path
 from kerykeion import AstrologicalSubject, Report
 import logging
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 
 # Flask uygulamasını oluştur
 app = Flask(__name__)
@@ -49,7 +50,7 @@ def calculate_chart():
 
         # Sonuçları JSON olarak döndür
         return jsonify({
-            'report': report_text,
+            'report': report_text
         })
 
     except Exception as e:
