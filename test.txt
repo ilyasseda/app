@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astro Test</title>
+    <style>
+        body {
+            background: #000;
+            color: #fff;
+            font-family: -apple-system, system-ui, sans-serif;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .test-form {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input, button {
+            padding: 8px;
+            width: 100%;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #333;
+        }
+
+        button {
+            background: #fe2324;
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        pre {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-form">
+        <div class="form-group">
+            <label>Test Data Set:</label>
+            <select id="testData" onchange="fillTestData()">
+                <option value="">Select a test case</option>
+                <option value="case1">Test Case 1 (John)</option>
+                <option value="case2">Test Case 2 (Mary)</option>
+                <option value="case3">Test Case 3 (Alex)</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Name:</label>
+            <input type="text" id="name">
+        </div>
+        <div class="form-group">
+            <label>Year:</label>
+            <input type="number" id="year">
+        </div>
+        <div class="form-group">
+            <label>Month:</label>
+            <input type="number" id="month">
+        </div>
+        <div class="form-group">
+            <label>Day:</label>
+            <input type="number" id="day">
+        </div>
+        <div class="form-group">
+            <label>Hour:</label>
+            <input type="number" id="hour">
+        </div>
+        <div class="form-group">
+            <label>Minute:</label>
+            <input type="number" id="minute">
+        </div>
+        <div class="form-group">
+            <label>Latitude:</label>
+            <input type="text" id="lat">
+        </div>
+        <div class="form-group">
+            <label>Longitude:</label>
+            <input type="text" id="lng">
+        </div>
+        <button onclick="calculate()">Calculate Chart</button>
+    </div>
+
+    <pre id="result">Results will appear here...</pre>
+
+    <script>
+        const testCases = {
+            case1: {
+                name: "John Doe",
+                year: 1990,
+                month: 6,
+                day: 15,
+                hour: 14,
+                minute: 30,
+                lat: 40.7128,
+                lng: -74.0060
+            },
+            case2: {
+                name: "Mary Smith",
+                year: 1985,
+                month: 3,
+                day: 21,
+                hour: 8,
+                minute: 45,
+                lat: 51.5074,
+                lng: -0.1278
+            },
+            case3: {
+                name: "Alex Johnson",
+                year: 2000,
+                month: 12,
+                day: 31,
+                hour: 23,
+                minute: 59,
+                lat: 35.6762,
+                lng: 139.6503
+            }
+        };
+
+        function fillTestData() {
+            const selected = document.getElementById('testData').value;
+            if (!selected) return;
+
+            const data = testCases[selected];
+            Object.keys(data).forEach(key => {
+                document.getElementById(key).value = data[key];
+            });
+        }
+
+        async function calculate() {
+            const result = document.getElementById('result');
+            result.textContent = 'Calculating...';
+
+            const data = {
+                name: document.getElementById('name').value,
+                year: parseInt(document.getElementById('year').value),
+                month: parseInt(document.getElementById('month').value),
+                day: parseInt(document.getElementById('day').value),
+                hour: parseInt(document.getElementById('hour').value),
+                minute: parseInt(document.getElementById('minute').value),
+                lat: parseFloat(document.getElementById('lat').value),
+                lng: parseFloat(document.getElementById('lng').value)
+            };
+
+            try {
+                // Change this URL to match your local Flask server
+                const response = await fetch('http://localhost:5000/calculate_chart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                const chartData = await response.json();
+                result.textContent = JSON.stringify(chartData, null, 2);
+            } catch (error) {
+                result.textContent = `Error: ${error.message}`;
+            }
+        }
+
+        // Fill first test case by default
+        document.getElementById('testData').value = 'case1';
+        fillTestData();
+    </script>
+</body>
+</html>
