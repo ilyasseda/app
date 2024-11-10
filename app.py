@@ -6,20 +6,14 @@ import logging
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-# Flask uygulamasını oluştur
 app = Flask(__name__)
 CORS(app)
 
-# Logging ayarları
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Swiss Ephemeris dosyalarının yolu
 sweph_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "1Kerykeion", "kerykeion", "sweph")
 os.environ["SWISSEPH_PATH"] = sweph_path
 
-print(f"Swiss Ephemeris dosyalarının konumu: {sweph_path}")
-
-# Çıktı dizini
 output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 os.makedirs(output_dir, exist_ok=True)
 
@@ -37,13 +31,14 @@ def calculate_chart():
         nation = data.get('nation', 'Unknown')
         lat = data.get('lat')
         lng = data.get('lng')
+        timezone = data.get('timezone', 'UTC')  # Varsayılan olarak UTC kullan
 
-        # AstrologicalSubject oluştur - Placidus ev sistemi ile
+        # AstrologicalSubject oluştur
         subject = AstrologicalSubject(
             name, year, month, day, hour, minute,
             city=city, nation=nation,
             lat=lat, lng=lng,
-            tz_str="Europe/Istanbul",
+            tz_str=timezone,  # Dinamik timezone kullan
             houses_system="P"  # Placidus ev sistemi
         )
 
@@ -55,7 +50,13 @@ def calculate_chart():
         chart_data = {
             'report': report_text,
             'houses': {},
-            'planets': {}
+            'planets': {},
+            'coordinates': {
+                'lat': lat,
+                'lng': lng
+            },
+            'timezone': timezone,
+            'location': f"{city}, {nation}"
         }
 
         # Evleri ekle
