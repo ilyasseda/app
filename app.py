@@ -6,14 +6,20 @@ import logging
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
+# Flask uygulamasını oluştur
 app = Flask(__name__)
 CORS(app)
 
+# Logging ayarları
 logging.basicConfig(level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
+# Swiss Ephemeris dosyalarının yolu
 sweph_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "1Kerykeion", "kerykeion", "sweph")
 os.environ["SWISSEPH_PATH"] = sweph_path
 
+print(f"Swiss Ephemeris dosyalarının konumu: {sweph_path}")
+
+# Çıktı dizini
 output_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "output")
 os.makedirs(output_dir, exist_ok=True)
 
@@ -27,18 +33,21 @@ def calculate_chart():
         day = data.get('day')
         hour = data.get('hour')
         minute = data.get('minute')
-        city = data.get('city', 'Unknown')
-        nation = data.get('nation', 'Unknown')
         lat = data.get('lat')
         lng = data.get('lng')
-        timezone = data.get('timezone', 'UTC')  # Varsayılan olarak UTC kullan
 
         # AstrologicalSubject oluştur
+        # Doğru sıralama: (name, year, month, day, hour, minute, lng, lat, tz_str)
         subject = AstrologicalSubject(
-            name, year, month, day, hour, minute,
-            city=city, nation=nation,
-            lat=lat, lng=lng,
-            tz_str=timezone,  # Dinamik timezone kullan
+            name,
+            year,
+            month,
+            day,
+            hour,
+            minute,
+            lng=lng,  # Longitude direkt olarak verilmeli
+            lat=lat,  # Latitude direkt olarak verilmeli
+            tz_str="Europe/Istanbul",
             houses_system="P"  # Placidus ev sistemi
         )
 
@@ -49,35 +58,11 @@ def calculate_chart():
         # Chart verilerini hazırla
         chart_data = {
             'report': report_text,
-            'houses': {},
-            'planets': {},
             'coordinates': {
                 'lat': lat,
                 'lng': lng
-            },
-            'timezone': timezone,
-            'location': f"{city}, {nation}"
+            }
         }
-
-        # Evleri ekle
-        for house_num in range(1, 13):
-            house_obj = getattr(subject, f'house_{house_num}')
-            chart_data['houses'][f'house_{house_num}'] = {
-                'sign': house_obj['sign'],
-                'position': house_obj['pos'],
-                'absolute_position': house_obj['abs_pos']
-            }
-
-        # Gezegenleri ekle
-        for planet in ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 
-                      'saturn', 'uranus', 'neptune', 'pluto']:
-            planet_obj = getattr(subject, planet)
-            chart_data['planets'][planet] = {
-                'sign': planet_obj['sign'],
-                'position': planet_obj['pos'],
-                'house': planet_obj['house'],
-                'retrograde': planet_obj['retrograde']
-            }
 
         return jsonify(chart_data)
 
