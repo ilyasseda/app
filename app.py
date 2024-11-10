@@ -38,20 +38,47 @@ def calculate_chart():
         lat = data.get('lat')
         lng = data.get('lng')
 
-        # AstrologicalSubject oluştur
-        subject = AstrologicalSubject(name, year, month, day, hour, minute, 
-                                      city=city, nation=nation,
-                                      lat=lat, lng=lng, 
-                                      tz_str="Europe/Istanbul")
+        # AstrologicalSubject oluştur - Placidus ev sistemi ile
+        subject = AstrologicalSubject(
+            name, year, month, day, hour, minute,
+            city=city, nation=nation,
+            lat=lat, lng=lng,
+            tz_str="Europe/Istanbul",
+            houses_system="P"  # Placidus ev sistemi
+        )
 
         # Rapor oluştur
         report = Report(subject)
         report_text = report.get_full_report()
 
-        # Sonuçları JSON olarak döndür
-        return jsonify({
-            'report': report_text
-        })
+        # Chart verilerini hazırla
+        chart_data = {
+            'report': report_text,
+            'houses': {},
+            'planets': {}
+        }
+
+        # Evleri ekle
+        for house_num in range(1, 13):
+            house_obj = getattr(subject, f'house_{house_num}')
+            chart_data['houses'][f'house_{house_num}'] = {
+                'sign': house_obj['sign'],
+                'position': house_obj['pos'],
+                'absolute_position': house_obj['abs_pos']
+            }
+
+        # Gezegenleri ekle
+        for planet in ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 
+                      'saturn', 'uranus', 'neptune', 'pluto']:
+            planet_obj = getattr(subject, planet)
+            chart_data['planets'][planet] = {
+                'sign': planet_obj['sign'],
+                'position': planet_obj['pos'],
+                'house': planet_obj['house'],
+                'retrograde': planet_obj['retrograde']
+            }
+
+        return jsonify(chart_data)
 
     except Exception as e:
         logging.exception("Bir hata oluştu:")
